@@ -22,6 +22,9 @@
                     <a class="btn btn-outline-secondary" th:href="@{/logout}">Log out</a>
                 </div>
                 <div sec:authorize="isAuthenticated()">
+                    <a class="btn btn-outline-secondary" th:href="@{/Utilisateur/{id}/mesEmprunts(id=${#authentication.principal.getId()})}">Mes emprunts</a>
+                </div>
+                <div sec:authorize="isAuthenticated()">
                     <a class="btn btn-outline-secondary" th:href="@{/compte}" th:text="${#authentication.getName()}"></a>
                 </div>
             </form>

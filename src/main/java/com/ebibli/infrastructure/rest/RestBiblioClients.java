@@ -1,7 +1,10 @@
 package com.ebibli.infrastructure.rest;
 
 import com.ebibli.domain.BiblioClients;
+import com.ebibli.dto.LivreDto;
 import com.ebibli.dto.UtilisateurDto;
+
+import java.util.List;
 
 public class RestBiblioClients implements BiblioClients {
 
@@ -25,4 +28,11 @@ public class RestBiblioClients implements BiblioClients {
     public void delete(UtilisateurDto utilisateur) {
         biblioClientApi.delete(utilisateur);
     }
+
+    @Override
+    public List<LivreDto> findEmpruntsByUtilisateur(Integer userid) {
+        return biblioClientApi.getEmpruntsByUtilisateur(userid);
+    }
+
+
 }

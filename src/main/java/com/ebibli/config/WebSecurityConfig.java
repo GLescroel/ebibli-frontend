@@ -65,6 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/logout").permitAll()
                 .antMatchers("/creationCompte").permitAll()
                 .antMatchers("/compte").authenticated()
+                .antMatchers("/Utilisateur/*/mesEmprunts**").authenticated()
                 .antMatchers("/*").permitAll()
                 .antMatchers("/biblio-services/**").permitAll()
                 .anyRequest().permitAll()
