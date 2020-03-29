@@ -1,5 +1,6 @@
 package com.ebibli.domain;
 
+import com.ebibli.dto.BibliothequeDto;
 import com.ebibli.dto.LivreDto;
 import com.ebibli.dto.UtilisateurDto;
 
@@ -14,4 +15,8 @@ public interface BiblioClients {
     void delete(UtilisateurDto utilisateur);
 
     List<LivreDto> findEmpruntsByUtilisateur(Integer userid);
+
+    List<BibliothequeDto> getAllBibliotheques();
+
+    BibliothequeDto getBibliotheque(Integer bibliothequeId);
 }

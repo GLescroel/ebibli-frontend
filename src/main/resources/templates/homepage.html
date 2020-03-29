@@ -15,6 +15,16 @@
         <nav class="navbar navbar-light bg-light">
             <form class="form-inline">
                 <a class="btn btn-outline-secondary" th:href="@{/}">Accueil</a>
+                <div class="nav-item dropdown">
+                    <a aria-expanded="false" aria-haspopup="true"
+                       class="nav-link dropdown-toggle btn btn-outline-secondary btn-sm" data-toggle="dropdown" href="#" id="navbarDropdown"
+                       role="button" th:text="${bibliothequeSelectionnee.getNom()}">Bibliothèques</a>
+                    <div aria-labelledby="navbarDropdown" class="dropdown-menu">
+                        <div th:each="bibliotheque : ${bibliotheques}">
+                            <a class="dropdown-item" th:text="${bibliotheque.getNom()}" th:href="@{/Bibliotheque/{bibliothequeId}(bibliothequeId=${bibliotheque.getId()})}"></a>
+                    </div>
+                    </div>
+                </div>
                 <div sec:authorize="!isAuthenticated()">
                     <a class="btn btn-outline-secondary" th:href="@{/login}">S'authentifier</a>
                 </div>
@@ -22,16 +32,24 @@
                     <a class="btn btn-outline-secondary" th:href="@{/logout}">Log out</a>
                 </div>
                 <div sec:authorize="isAuthenticated()">
-                    <a class="btn btn-outline-secondary" th:href="@{/Utilisateur/{id}/mesEmprunts(id=${#authentication.principal.getId()})}">Mes emprunts</a>
+                    <a class="btn btn-outline-secondary"
+                       th:href="@{/Utilisateur/{id}/mesEmprunts(id=${#authentication.principal.getId()})}">Mes
+                        emprunts</a>
                 </div>
                 <div sec:authorize="isAuthenticated()">
-                    <a class="btn btn-outline-secondary" th:href="@{/compte}" th:text="${#authentication.getName()}"></a>
+                    <a class="btn btn-outline-secondary" th:href="@{/compte}"
+                       th:text="${#authentication.getName()}"></a>
                 </div>
             </form>
         </nav>
     </div>
     <div class="container">
-        <h1>Bienvenue sur votre bibliothèque en ligne</h1>
+        <div th:if="${bibliothequeSelectionnee.getId() == 0}">
+            <h1>Bienvenue sur votre bibliothèque en ligne</h1>
+        </div>
+        <div th:if="${bibliothequeSelectionnee.getId() != 0}">
+            <h1><span th:text="${bibliothequeSelectionnee.getNom()}"></span> </h1>
+        </div>
         <br/><br/>
     </div>
 </header>
@@ -39,9 +57,15 @@
 <body>
 
 <div class="container">
-    <span><h2>Site en construction</h2></span>
+    <h2>Liste des ouvrages proposés :</h2>
 </div>
 
+
+<script>
+    function change(){
+        document.getElementById("myform").submit();
+    }
+</script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script crossorigin="anonymous"
