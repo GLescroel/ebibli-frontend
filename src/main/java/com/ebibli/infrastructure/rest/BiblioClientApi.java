@@ -2,6 +2,7 @@ package com.ebibli.infrastructure.rest;
 
 import com.ebibli.dto.BibliothequeDto;
 import com.ebibli.dto.LivreDto;
+import com.ebibli.dto.OuvrageDto;
 import com.ebibli.dto.UtilisateurDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,4 +33,10 @@ public interface BiblioClientApi {
 
     @GetMapping(value = "/Bibliotheque/{id}")
     BibliothequeDto getBibliotheque(@PathVariable("id") Integer bibliothequeId);
+
+    @GetMapping(value = "/Ouvrages")
+    List<OuvrageDto> getAllOuvrages();
+
+    @GetMapping(value = "/Livres/{bibliothequeId}")
+    List<LivreDto> getLivresByBibliotheque(@PathVariable("bibliothequeId") Integer bibliothequeId);
 }

@@ -19,5 +19,8 @@ public class LivreService {
         return biblioClients.findEmpruntsByUtilisateur(userid);
     }
 
+    public List<LivreDto> getAllLivresByBibliotheque(Integer bibliothequeId) {
+        return biblioClients.getAllLivresByBibliotheque(bibliothequeId);
+    }
 
 }

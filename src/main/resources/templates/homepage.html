@@ -57,7 +57,50 @@
 <body>
 
 <div class="container">
-    <h2>Liste des ouvrages proposés :</h2>
+    <div th:if="${bibliothequeSelectionnee.getId() == 0}">
+        <h2>Liste des ouvrages proposés :</h2>
+
+        <div th:if="${ouvrages}">
+            <br><br>
+            <table class="table-striped">
+                <thead>
+                <tr>
+                    <th> Titre</th>
+                    <th> Résumé</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="ouvrage : ${ouvrages}">
+                    <td><span th:text="${ouvrage.getTitre()}"> </span></td>
+                    <td><span th:text="${ouvrage.getResume()}"> </span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div th:if="${bibliothequeSelectionnee.getId() != 0}">
+        <h2>Liste des livres proposés :</h2>
+        <div th:if="${livres}">
+            <br><br>
+            <table class="table-striped">
+                <thead>
+                <tr>
+                    <th> Titre</th>
+                    <th> Résumé</th>
+                    <th> Disponible</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="livre : ${livres}">
+                    <td><span th:text="${livre.getOuvrage().getTitre()}"> </span></td>
+                    <td><span th:text="${livre.getOuvrage().getResume()}"> </span></td>
+                    <td><span th:text="${livre.getDisponible()}"> </span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br/><br/>
 </div>
 
 

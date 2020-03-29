@@ -2,6 +2,7 @@ package com.ebibli.domain;
 
 import com.ebibli.dto.BibliothequeDto;
 import com.ebibli.dto.LivreDto;
+import com.ebibli.dto.OuvrageDto;
 import com.ebibli.dto.UtilisateurDto;
 
 import java.util.List;
@@ -19,4 +20,8 @@ public interface BiblioClients {
     List<BibliothequeDto> getAllBibliotheques();
 
     BibliothequeDto getBibliotheque(Integer bibliothequeId);
+
+    List<OuvrageDto> getAllOuvrages();
+
+    List<LivreDto> getAllLivresByBibliotheque(Integer bibliothequeId);
 }

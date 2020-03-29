@@ -2,6 +2,8 @@ package com.ebibli.controller;
 
 import com.ebibli.dto.BibliothequeDto;
 import com.ebibli.service.BibliothequeService;
+import com.ebibli.service.LivreService;
+import com.ebibli.service.OuvrageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,10 @@ public class HomepageController {
 
     @Autowired
     private BibliothequeService bibliothequeService;
+    @Autowired
+    private OuvrageService ouvrageService;
+    @Autowired
+    private LivreService livreService;
 
     @GetMapping(value = "/")
     public ModelAndView viewHomepage() {
@@ -26,6 +32,7 @@ public class HomepageController {
         ModelAndView modelAndview = new ModelAndView("homepage");
         modelAndview.addObject("bibliotheques", bibliothequeService.getAllBibliotheques());
         modelAndview.addObject("bibliothequeSelectionnee", DEFAULT_BIBLIOTHEQUE);
+        modelAndview.addObject("ouvrages", ouvrageService.getAllOuvrages());
 
         return modelAndview;
     }
@@ -34,10 +41,10 @@ public class HomepageController {
     public ModelAndView updateHomepage(@PathVariable(name = "bibliothequeId") Integer bibliothequeId) {
         LOGGER.info("HomepageController -- updateHomePage");
 
-        LOGGER.info(String.valueOf(bibliothequeId));
         ModelAndView modelAndview = new ModelAndView("homepage");
         modelAndview.addObject("bibliotheques", bibliothequeService.getAllBibliotheques());
         modelAndview.addObject("bibliothequeSelectionnee", bibliothequeService.getBibliotheque(bibliothequeId));
+        modelAndview.addObject("livres", livreService.getAllLivresByBibliotheque(bibliothequeId));
 
         return modelAndview;
     }

@@ -3,6 +3,7 @@ package com.ebibli.infrastructure.rest;
 import com.ebibli.domain.BiblioClients;
 import com.ebibli.dto.BibliothequeDto;
 import com.ebibli.dto.LivreDto;
+import com.ebibli.dto.OuvrageDto;
 import com.ebibli.dto.UtilisateurDto;
 
 import java.util.List;
@@ -43,6 +44,16 @@ public class RestBiblioClients implements BiblioClients {
     @Override
     public BibliothequeDto getBibliotheque(Integer bibliothequeId) {
         return biblioClientApi.getBibliotheque(bibliothequeId);
+    }
+
+    @Override
+    public List<OuvrageDto> getAllOuvrages() {
+        return biblioClientApi.getAllOuvrages();
+    }
+
+    @Override
+    public List<LivreDto> getAllLivresByBibliotheque(Integer bibliothequeId) {
+        return biblioClientApi.getLivresByBibliotheque(bibliothequeId);
     }
 
 
