@@ -57,7 +57,7 @@
                         <th> Bibliothèque</th>
                         <th> Date d'emprunt</th>
                         <th> Date de retour prévu</th>
-                        <th> Déjà prolongé ?</th>
+                        <th> Prolongation</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -66,7 +66,14 @@
                         <td><span th:text="${emprunt.getBibliotheque().getNom()}">Bibliothèque</span></td>
                         <td><span th:text="${emprunt.getDateEmprunt()}">Date d'emprunt</span></td>
                         <td><span th:text="${emprunt.getDateRetourPrevu()}">Date de retour </span></td>
-                        <td><span th:text="${emprunt.getProlonge()}">Prolonge</span></td>
+                        <div th:if="${emprunt.getProlonge()} == null">
+                            <form id="prolongerPret" method="post"
+                                  th:action="@{/prolongation/{livreId}(livreId=${emprunt.getId()})}">
+                                <td>
+                                    <input class="btn btn-outline-success" type="submit" value="Prolonger"/>
+                                </td>
+                            </form>
+                        </div>
                     </tr>
                     </tbody>
                 </table>

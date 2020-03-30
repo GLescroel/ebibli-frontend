@@ -23,4 +23,7 @@ public class LivreService {
         return biblioClients.getAllLivresByBibliotheque(bibliothequeId);
     }
 
+    public LivreDto upgradePret(Integer livreId) {
+        return biblioClients.upgradePret(livreId);
+    }
 }

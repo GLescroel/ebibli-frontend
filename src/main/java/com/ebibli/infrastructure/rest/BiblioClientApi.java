@@ -39,4 +39,7 @@ public interface BiblioClientApi {
 
     @GetMapping(value = "/Livres/{bibliothequeId}")
     List<LivreDto> getLivresByBibliotheque(@PathVariable("bibliothequeId") Integer bibliothequeId);
+
+    @PostMapping(value = "/prolongation/{livreId}")
+    LivreDto upgradePret(@PathVariable("livreId") Integer livreId);
 }

@@ -56,5 +56,10 @@ public class RestBiblioClients implements BiblioClients {
         return biblioClientApi.getLivresByBibliotheque(bibliothequeId);
     }
 
+    @Override
+    public LivreDto upgradePret(Integer livreId) {
+        return biblioClientApi.upgradePret(livreId);
+    }
+
 
 }

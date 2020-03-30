@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -28,4 +29,15 @@ public class EmpruntController {
         model.addAttribute("emprunts", livres);
         return "emprunt";
     }
+
+    @PostMapping(value = "/prolongation/{id}")
+    public String upgradePret(Model model, @PathVariable("id") Integer livreId) {
+        LOGGER.info(">>>>> Dans EmpruntController - upgradePret");
+
+        LivreDto livre = livreService.upgradePret(livreId);
+        List<LivreDto> livres = livreService.findEmpruntsByUtilisateur(livre.getEmprunteur().getId());
+        model.addAttribute("emprunts", livres);
+        return "emprunt";
+    }
+
 }

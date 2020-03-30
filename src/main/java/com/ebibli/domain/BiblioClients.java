@@ -24,4 +24,6 @@ public interface BiblioClients {
     List<OuvrageDto> getAllOuvrages();
 
     List<LivreDto> getAllLivresByBibliotheque(Integer bibliothequeId);
+
+    LivreDto upgradePret(Integer livreId);
 }
