@@ -13,31 +13,31 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
 @FeignClient(name = "biblio-services",
-        url = "http://localhost:8081")
+        url = "${clients.com-ebibli-v1-vs.endpoint}")
 public interface BiblioClientApi {
 
-    @GetMapping(value = "/Utilisateur/{email}")
+    @GetMapping(value = "/utilisateur/{email}")
     UtilisateurDto getUtilisateurByEmail(@PathVariable("email") String email);
 
-    @PostMapping(value = "/Utilisateur/creation")
+    @PostMapping(value = "/utilisateur/creation")
     void save(@RequestBody UtilisateurDto utilisateur);
 
-    @PostMapping(value = "/Utilisateur/suppression")
+    @PostMapping(value = "/utilisateur/suppression")
     void delete(@RequestBody UtilisateurDto utilisateur);
 
-    @GetMapping(value = "/Utilisateur/{id}/Emprunts")
+    @GetMapping(value = "/emprunts/{id}")
     List<LivreDto> getEmpruntsByUtilisateur(@PathVariable("id") Integer userId);
 
-    @GetMapping(value = "/Bibliotheques")
+    @GetMapping(value = "/bibliotheques")
     List<BibliothequeDto> getAllBibliotheques();
 
-    @GetMapping(value = "/Bibliotheque/{id}")
+    @GetMapping(value = "/bibliotheque/{id}")
     BibliothequeDto getBibliotheque(@PathVariable("id") Integer bibliothequeId);
 
-    @GetMapping(value = "/Ouvrages")
+    @GetMapping(value = "/ouvrages")
     List<OuvrageDto> getAllOuvrages();
 
-    @GetMapping(value = "/Livres/{bibliothequeId}")
+    @GetMapping(value = "/livres/{bibliothequeId}")
     List<LivreDto> getLivresByBibliotheque(@PathVariable("bibliothequeId") Integer bibliothequeId);
 
     @PostMapping(value = "/prolongation/{livreId}")
