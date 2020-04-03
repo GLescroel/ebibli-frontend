@@ -7,6 +7,7 @@ import com.ebibli.service.OuvrageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,9 @@ public class HomepageController {
     @Autowired
     private LivreService livreService;
 
+    @Value("${clients.com-ebibli-v1-vs.endpoint}")
+    private String host;
+
     @GetMapping(value = "/")
     public ModelAndView viewHomepage() {
         LOGGER.info("HomepageController -- viewHomepage");
@@ -33,18 +37,20 @@ public class HomepageController {
         modelAndview.addObject("bibliotheques", bibliothequeService.getAllBibliotheques());
         modelAndview.addObject("bibliothequeSelectionnee", DEFAULT_BIBLIOTHEQUE);
         modelAndview.addObject("ouvrages", ouvrageService.getAllOuvrages());
+        modelAndview.addObject("urlBackend", host+"/");
 
         return modelAndview;
     }
 
     @GetMapping(value = "/Bibliotheque/{bibliothequeId}")
-    public ModelAndView updateHomepage(@PathVariable(name = "bibliothequeId") Integer bibliothequeId) {
+    public ModelAndView viewBibliotheque(@PathVariable(name = "bibliothequeId") Integer bibliothequeId) {
         LOGGER.info("HomepageController -- updateHomePage");
 
         ModelAndView modelAndview = new ModelAndView("homepage");
         modelAndview.addObject("bibliotheques", bibliothequeService.getAllBibliotheques());
         modelAndview.addObject("bibliothequeSelectionnee", bibliothequeService.getBibliotheque(bibliothequeId));
         modelAndview.addObject("livres", livreService.getAllLivresByBibliotheque(bibliothequeId));
+        modelAndview.addObject("urlBackend", host+"/");
 
         return modelAndview;
     }

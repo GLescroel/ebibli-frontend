@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
+/**
+ * Accès aux API du backend avec Feign
+ */
 @FeignClient(name = "biblio-services",
         url = "${clients.com-ebibli-v1-vs.endpoint}")
 public interface BiblioClientApi {

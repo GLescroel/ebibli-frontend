@@ -17,12 +17,14 @@
                 <a class="btn btn-outline-secondary" th:href="@{/}">Accueil</a>
                 <div class="nav-item dropdown">
                     <a aria-expanded="false" aria-haspopup="true"
-                       class="nav-link dropdown-toggle btn btn-outline-secondary btn-sm" data-toggle="dropdown" href="#" id="navbarDropdown"
+                       class="nav-link dropdown-toggle btn btn-outline-secondary btn-sm" data-toggle="dropdown" href="#"
+                       id="navbarDropdown"
                        role="button" th:text="${bibliothequeSelectionnee.getNom()}">Bibliothèques</a>
                     <div aria-labelledby="navbarDropdown" class="dropdown-menu">
                         <div th:each="bibliotheque : ${bibliotheques}">
-                            <a class="dropdown-item" th:text="${bibliotheque.getNom()}" th:href="@{/Bibliotheque/{bibliothequeId}(bibliothequeId=${bibliotheque.getId()})}"></a>
-                    </div>
+                            <a class="dropdown-item" th:href="@{/Bibliotheque/{bibliothequeId}(bibliothequeId=${bibliotheque.getId()})}"
+                               th:text="${bibliotheque.getNom()}"></a>
+                        </div>
                     </div>
                 </div>
                 <div sec:authorize="!isAuthenticated()">
@@ -48,7 +50,7 @@
             <h1>Bienvenue sur votre bibliothèque en ligne</h1>
         </div>
         <div th:if="${bibliothequeSelectionnee.getId() != 0}">
-            <h1><span th:text="${bibliothequeSelectionnee.getNom()}"></span> </h1>
+            <h1><span th:text="${bibliothequeSelectionnee.getNom()}"></span></h1>
         </div>
         <br/><br/>
     </div>
@@ -56,48 +58,59 @@
 
 <body>
 
+<div>
+    <img th:src="@{${image}}">
+</div>
 <div class="container">
     <div th:if="${bibliothequeSelectionnee.getId() == 0}">
         <h2>Liste des ouvrages proposés :</h2>
 
         <div th:if="${ouvrages}">
             <br><br>
-            <table class="table-striped">
-                <thead>
-                <tr>
-                    <th> Titre</th>
-                    <th> Résumé</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="ouvrage : ${ouvrages}">
-                    <td><span th:text="${ouvrage.getTitre()}"> </span></td>
-                    <td><span th:text="${ouvrage.getResume()}"> </span></td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="row">
+                <table class="table-striped">
+                    <thead>
+                    <tr>
+                        <div class="col-2"><th></th></div>
+                        <div class="col-5"><th> Titre</th></div>
+                        <div class="col-5"><th> Résumé</th></div>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="ouvrage : ${ouvrages}">
+                        <div class="col-2"><td><img th:src="@{${urlBackend}+${ouvrage.getImage()}}" style="width:200px"></td></div>
+                        <div class="col-5"><td><strong><span th:text="${ouvrage.getTitre()}"> </span></strong></td></div>
+                        <div class="col-5"><td><span th:text="${ouvrage.getResume()}"> </span></td></div>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <div th:if="${bibliothequeSelectionnee.getId() != 0}">
         <h2>Liste des livres proposés :</h2>
         <div th:if="${livres}">
             <br><br>
+            <div class="row">
             <table class="table-striped">
                 <thead>
                 <tr>
-                    <th> Titre</th>
-                    <th> Résumé</th>
-                    <th> Disponible</th>
+                    <div class="col-1"><th> </th></div>
+                    <div class="col-5"><th> Titre</th></div>
+                    <div class="col-5"><th> Résumé</th></div>
+                    <div class="col-1"><th> Disponible</th></div>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="livre : ${livres}">
-                    <td><span th:text="${livre.getOuvrage().getTitre()}"> </span></td>
-                    <td><span th:text="${livre.getOuvrage().getResume()}"> </span></td>
-                    <td><span th:text="${livre.getDisponible()}"> </span></td>
+                    <div class="col-1"><div class="col-2"><td><img th:src="@{${urlBackend}+${livre.getOuvrage().getImage()}}" style="width:100px"></td></div></div>
+                    <div class="col-5"><td><strong><span th:text="${livre.getOuvrage().getTitre()}"> </span></strong></td></div>
+                    <div class="col-5"><td><span th:text="${livre.getOuvrage().getResume()}"> </span></td></div>
+                    <div class="col-1"><td><span th:text="${livre.getDisponible()}"> </span></td></div>
                 </tr>
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
     <br/><br/>
@@ -105,7 +118,7 @@
 
 
 <script>
-    function change(){
+    function change() {
         document.getElementById("myform").submit();
     }
 </script>

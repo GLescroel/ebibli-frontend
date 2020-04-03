@@ -39,6 +39,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     }
 
+    /**
+     * Configuration des droits d'accès aux ressources web
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         LOGGER.info("configure");

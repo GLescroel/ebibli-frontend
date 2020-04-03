@@ -21,6 +21,12 @@ public class AppAuthProvider extends DaoAuthenticationProvider {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * Controle d'authentification
+     * @param authentication
+     * @return l'authentification de l'utilisateur
+     * @throws AuthenticationException
+     */
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         LOGGER.info("Authenticate");
