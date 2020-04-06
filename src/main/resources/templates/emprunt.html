@@ -74,6 +74,9 @@
                                 </td>
                             </form>
                         </div>
+                        <div th:if="${emprunt.getProlonge()} == true">
+                            <td><span>déjà prolongé</span></td>
+                        </div>
                     </tr>
                     </tbody>
                 </table>
