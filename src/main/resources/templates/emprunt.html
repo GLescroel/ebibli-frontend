@@ -49,6 +49,9 @@
     </div>
     <div th:if="!${empruntsEnCours.isEmpty()}">
         <div class="row">
+            <h2><span>Vos emprunts en cours</span></h2>
+        </div>
+        <div class="row">
             <div class="table-responsive">
                 <table class="table-striped">
                     <thead>
@@ -65,7 +68,12 @@
                         <td><span th:text="${emprunt.getLivre().getOuvrage().getTitre()}">Titre</span></td>
                         <td><span th:text="${emprunt.getLivre().getBibliotheque().getNom()}">Bibliothèque</span></td>
                         <td><span th:text="${emprunt.getDateEmprunt()}">Date d'emprunt</span></td>
-                        <td><span th:text="${emprunt.getDateRetourPrevu()}">Date de retour </span></td>
+                        <div th:if="${emprunt.getEnRetard()} != true">
+                            <td><span th:text="${emprunt.getDateRetourPrevu()}">Date de retour </span></td>
+                        </div>
+                        <div th:if="${emprunt.getEnRetard()} == true">
+                            <td><span th:style="'color:red'" th:text="${emprunt.getDateRetourPrevu()}">Date de retour </span></td>
+                        </div>
                         <div th:if="${emprunt.getProlonge()} != true">
                             <form id="prolongerPret" method="post"
                                   th:action="@{/prolongation/{livreId}(livreId=${emprunt.getId()})}">
@@ -77,6 +85,36 @@
                         <div th:if="${emprunt.getProlonge()} == true">
                             <td><span>déjà prolongé</span></td>
                         </div>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div th:if="!${empruntsTermines.isEmpty()}">
+        <div class="row">
+            <h2><span>Historique de vos emprunts</span></h2>
+        </div>
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table-striped">
+                    <thead>
+                    <tr>
+                        <th> Titre</th>
+                        <th> Bibliothèque</th>
+                        <th> Date d'emprunt</th>
+                        <th> Date de retour</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="emprunt : ${empruntsTermines}">
+                        <td><span th:text="${emprunt.getLivre().getOuvrage().getTitre()}">Titre</span></td>
+                        <td><span th:text="${emprunt.getLivre().getBibliotheque().getNom()}">Bibliothèque</span></td>
+                        <td><span th:text="${emprunt.getDateEmprunt()}">Date d'emprunt</span></td>
+                        <td><span th:text="${emprunt.getDateRetour()}">Date de retour </span></td>
                     </tr>
                     </tbody>
                 </table>
