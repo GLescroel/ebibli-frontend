@@ -1,6 +1,6 @@
 package com.ebibli.service;
 
-import com.ebibli.domain.BiblioClients;
+import com.ebibli.domain.BibliothequeClient;
 import com.ebibli.dto.BibliothequeDto;
 import org.springframework.stereotype.Service;
 
@@ -9,9 +9,9 @@ import java.util.List;
 @Service
 public class BibliothequeService {
 
-    private final BiblioClients biblioClients;
+    private final BibliothequeClient biblioClients;
 
-    public BibliothequeService(BiblioClients biblioClients) {
+    public BibliothequeService(BibliothequeClient biblioClients) {
         this.biblioClients = biblioClients;
     }
 

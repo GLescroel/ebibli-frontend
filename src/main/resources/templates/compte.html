@@ -45,7 +45,7 @@
 
 <body>
 
-<div th:if="${deleted} != true">
+<div th:if="${deleted == false && message.isEmpty()}">
 <div class="container">
     <div>
         <span><h3>Vos informations : </h3></span>
@@ -68,10 +68,19 @@
     </form>
 </div>
 </div>
+<div th:if="${deleted == false && !message.isEmpty()}">
+    <div class="container">
+        <h1><span th:text="${message}"></span> </h1>
+        <form class="button" id="retour1" th:action="@{/}">
+            <input class="btn btn-outline-secondary" type="submit" value="Revenir à l'accueil"/>
+        </form>
+    </div>
+</div>
+
 <div th:if="${deleted} == true">
     <div class="container">
     <h1>Votre compte a été supprimé</h1>
-        <form class="button" id="retour" th:action="@{/logout}">
+        <form class="button" id="retour2" th:action="@{/logout}">
             <input class="btn btn-outline-secondary" type="submit" value="Revenir à l'accueil"/>
         </form>
     </div>

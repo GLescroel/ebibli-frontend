@@ -110,7 +110,7 @@
                         <div class="col-1"><td><span style='color:#0C0'>Disponible</span></td></div>
                     </div>
                     <div th:if="${livre.getDisponible()} == false">
-                        <div class="col-1"><td><span style='color:#CCC' th:text="${livre.getDateRetourPrevu()}">retour</span></td></div>
+                        <div class="col-1"><td><span style='color:#CCC' th:text="${livre.getEmpruntEnCours().getDateRetourPrevu()}">retour</span></td></div>
                     </div>
                 </tr>
                 </tbody>

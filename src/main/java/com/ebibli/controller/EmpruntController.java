@@ -1,7 +1,7 @@
 package com.ebibli.controller;
 
-import com.ebibli.dto.LivreDto;
-import com.ebibli.service.LivreService;
+import com.ebibli.dto.EmpruntDto;
+import com.ebibli.service.EmpruntService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,32 +11,30 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.List;
-
 @Controller
 public class EmpruntController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EmpruntController.class);
 
     @Autowired
-    private LivreService livreService;
+    private EmpruntService empruntService;
 
     @GetMapping(value = "/Utilisateur/{id}/mesEmprunts")
     public String viewEmpruntsPage(Model model, @PathVariable("id") Integer idUtilisateur) {
         LOGGER.info(">>>>> Dans EmpruntController - GetMapping");
 
-        List<LivreDto> livres = livreService.findEmpruntsByUtilisateur(idUtilisateur);
-        model.addAttribute("emprunts", livres);
+        model.addAttribute("empruntsEnCours", empruntService.findEmpruntsEnCoursByUtilisateur(idUtilisateur));
+        model.addAttribute("empruntsTermines", empruntService.findEmpruntsTermineByUtilisateur(idUtilisateur));
         return "emprunt";
     }
 
     @PostMapping(value = "/prolongation/{id}")
-    public String upgradePret(Model model, @PathVariable("id") Integer livreId) {
+    public String upgradePret(Model model, @PathVariable("id") Integer pretId) {
         LOGGER.info(">>>>> Dans EmpruntController - upgradePret");
 
-        LivreDto livre = livreService.upgradePret(livreId);
-        List<LivreDto> livres = livreService.findEmpruntsByUtilisateur(livre.getEmprunteur().getId());
-        model.addAttribute("emprunts", livres);
+        EmpruntDto emprunt = empruntService.upgradePret(pretId);
+        model.addAttribute("empruntsEnCours", empruntService.findEmpruntsEnCoursByUtilisateur(emprunt.getEmprunteur().getId()));
+        model.addAttribute("empruntsTermines", empruntService.findEmpruntsTermineByUtilisateur(emprunt.getEmprunteur().getId()));
         return "emprunt";
     }
 

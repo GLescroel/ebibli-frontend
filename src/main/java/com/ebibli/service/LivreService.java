@@ -1,6 +1,7 @@
 package com.ebibli.service;
 
-import com.ebibli.domain.BiblioClients;
+import com.ebibli.domain.EmpruntClient;
+import com.ebibli.domain.LivreClient;
 import com.ebibli.dto.LivreDto;
 import org.springframework.stereotype.Service;
 
@@ -9,21 +10,21 @@ import java.util.List;
 @Service
 public class LivreService {
 
-    private final BiblioClients biblioClients;
+    private final LivreClient livreClient;
+    private final EmpruntClient empruntClient;
 
-    public LivreService(BiblioClients biblioClients) {
-        this.biblioClients = biblioClients;
-    }
-
-    public List<LivreDto> findEmpruntsByUtilisateur(Integer userid) {
-        return biblioClients.findEmpruntsByUtilisateur(userid);
+    public LivreService(LivreClient livreClient, EmpruntClient empruntClient) {
+        this.livreClient = livreClient;
+        this.empruntClient = empruntClient;
     }
 
     public List<LivreDto> getAllLivresByBibliotheque(Integer bibliothequeId) {
-        return biblioClients.getAllLivresByBibliotheque(bibliothequeId);
-    }
-
-    public LivreDto upgradePret(Integer livreId) {
-        return biblioClients.upgradePret(livreId);
+        List<LivreDto> livres = livreClient.getAllLivresByBibliotheque(bibliothequeId);
+        for (LivreDto livre : livres) {
+            if (livre.getDisponible() == false) {
+                livre.setEmpruntEnCours(empruntClient.findEmpruntEnCoursByLivre(livre.getId()));
+            }
+        }
+        return livres;
     }
 }

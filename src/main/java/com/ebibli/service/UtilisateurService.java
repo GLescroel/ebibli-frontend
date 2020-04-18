@@ -1,6 +1,6 @@
 package com.ebibli.service;
 
-import com.ebibli.domain.BiblioClients;
+import com.ebibli.domain.UtilisateurClient;
 import com.ebibli.dto.UtilisateurDto;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,10 +13,10 @@ import java.util.Optional;
 @Service
 public class UtilisateurService implements UserDetailsService {
 
-    private final BiblioClients biblioClients;
+    private final UtilisateurClient utilisateurClient;
 
-    public UtilisateurService(BiblioClients biblioClients) {
-        this.biblioClients = biblioClients;
+    public UtilisateurService(UtilisateurClient utilisateurClient) {
+        this.utilisateurClient = utilisateurClient;
     }
 
     @Override
@@ -31,15 +31,14 @@ public class UtilisateurService implements UserDetailsService {
     }
 
     public UtilisateurDto findUtilisateurByEmail(String email) {
-        return biblioClients.getCustomerByEmail(email);
+        return utilisateurClient.getUtilisateurByEmail(email);
     }
 
-
-    public void save(UtilisateurDto utilisateur) {
-        biblioClients.save(utilisateur);
+    public UtilisateurDto save(UtilisateurDto utilisateur) {
+        return utilisateurClient.save(utilisateur);
     }
 
-    public void remove(UtilisateurDto utilisateur) {
-        biblioClients.delete(utilisateur);
+    public Boolean remove(UtilisateurDto utilisateur) {
+        return utilisateurClient.delete(utilisateur);
     }
 }

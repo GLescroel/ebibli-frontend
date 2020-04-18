@@ -26,7 +26,7 @@ public class HomepageController {
     @Autowired
     private LivreService livreService;
 
-    @Value("${clients.com-ebibli-v1-vs.endpoint}")
+    @Value("${clients.com-ebibli-ouvrage.endpoint}")
     private String host;
 
     @GetMapping(value = "/")

@@ -25,6 +25,7 @@ public class CompteController {
         LOGGER.info(">>>>> Dans CompteController - GetMapping");
 
         model.addAttribute("deleted", false);
+        model.addAttribute("message", "");
         return "compte";
     }
 
@@ -35,9 +36,14 @@ public class CompteController {
 
         UtilisateurDto utilisateur = utilisateurService.findUtilisateurByEmail(email);
 
-        utilisateurService.remove(utilisateur);
+        if (utilisateurService.remove(utilisateur)) {
+            model.addAttribute("deleted", true);
+            model.addAttribute("message", "Votre compte a été supprimé");
+        } else {
+            model.addAttribute("deleted", false);
+            model.addAttribute("message", "Votre compte n'a pu  être supprimé suite à un problème technique ou à des emprunts encore en cours");
+        }
 
-        model.addAttribute("deleted", true);
         return "compte";
     }
 }
