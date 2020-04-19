@@ -43,19 +43,6 @@ public class HomepageController {
         return modelAndview;
     }
 
-    @GetMapping(value = "/Bibliotheque/{bibliothequeId}")
-    public ModelAndView viewBibliotheque(@PathVariable(name = "bibliothequeId") Integer bibliothequeId) {
-        LOGGER.info("HomepageController -- updateHomePage");
-
-        ModelAndView modelAndview = new ModelAndView("homepage");
-        modelAndview.addObject("bibliotheques", bibliothequeService.getAllBibliotheques());
-        modelAndview.addObject("bibliothequeSelectionnee", bibliothequeService.getBibliotheque(bibliothequeId));
-        modelAndview.addObject("livres", livreService.getAllLivresByBibliotheque(bibliothequeId));
-        modelAndview.addObject("urlBackend", host+"/");
-
-        return modelAndview;
-    }
-
     @PostMapping(value = "/recherche")
     public ModelAndView recherche(String recherche) {
         LOGGER.info("HomepageController -- recherche");
@@ -64,6 +51,19 @@ public class HomepageController {
         modelAndview.addObject("bibliotheques", bibliothequeService.getAllBibliotheques());
         modelAndview.addObject("bibliothequeSelectionnee", DEFAULT_BIBLIOTHEQUE);
         modelAndview.addObject("ouvrages", ouvrageService.filterOuvrages(recherche));
+        modelAndview.addObject("urlBackend", host+"/");
+
+        return modelAndview;
+    }
+
+    @GetMapping(value = "/Bibliotheque/{bibliothequeId}")
+    public ModelAndView viewBibliotheque(@PathVariable(name = "bibliothequeId") Integer bibliothequeId) {
+        LOGGER.info("HomepageController -- updateHomePage");
+
+        ModelAndView modelAndview = new ModelAndView("homepage");
+        modelAndview.addObject("bibliotheques", bibliothequeService.getAllBibliotheques());
+        modelAndview.addObject("bibliothequeSelectionnee", bibliothequeService.getBibliotheque(bibliothequeId));
+        modelAndview.addObject("livres", livreService.getAllLivresByBibliotheque(bibliothequeId));
         modelAndview.addObject("urlBackend", host+"/");
 
         return modelAndview;

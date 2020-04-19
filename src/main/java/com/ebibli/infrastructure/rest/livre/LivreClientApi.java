@@ -23,4 +23,7 @@ public interface LivreClientApi {
 
     @GetMapping(value = "/livres/{bibliothequeId}")
     List<LivreDto> getAllLivresByBibliotheque(@PathVariable("bibliothequeId") Integer bibliothequeId);
+
+    @GetMapping(value = "/livresDispo/ouvrage/{ouvrageId}")
+    List<LivreDto> getDispoByOuvrage(@PathVariable("ouvrageId") Integer ouvrageId);
 }

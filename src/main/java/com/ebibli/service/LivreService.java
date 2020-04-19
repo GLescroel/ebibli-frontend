@@ -27,4 +27,8 @@ public class LivreService {
         }
         return livres;
     }
+
+    public List<LivreDto> getDispoByOuvrage(Integer ouvrageId) {
+        return livreClient.getDispoByOuvrage(ouvrageId);
+    }
 }

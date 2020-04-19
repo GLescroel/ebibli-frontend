@@ -81,11 +81,14 @@
                             <div class="col-2">
                                 <th></th>
                             </div>
-                            <div class="col-5">
+                            <div class="col-4">
                                 <th> Titre</th>
                             </div>
-                            <div class="col-5">
+                            <div class="col-3">
                                 <th> Résumé</th>
+                            </div>
+                            <div class="col-2">
+                                <th></th>
                             </div>
                         </tr>
                         </thead>
@@ -94,12 +97,71 @@
                             <div class="col-2">
                                 <td><img style="width:200px" th:src="@{${urlBackend}+${ouvrage.getImage()}}"></td>
                             </div>
-                            <div class="col-5">
+                            <div class="col-4">
                                 <td><strong><span th:text="${ouvrage.getTitre()}"> </span></strong></td>
                             </div>
-                            <div class="col-5">
+                            <div class="col-3">
                                 <td><span th:text="${ouvrage.getResume()}"> </span></td>
                             </div>
+
+
+                            <td><div class="col-2"><span class="btn btn-outline-secondary"
+                                      data-toggle="modal" th:href="'#dispoModal' + ${ouvrage.getId()}" th:text="Disponibilités"> </span></div></td>
+                            <div class="modal fade" role="document"
+                                 th:id="'dispoModal' + ${ouvrage.getId()}">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button class="close" data-dismiss="modal"
+                                                    type="button">&times;
+                                            </button>
+                                            <h4 class="modal-title" th:text="${ouvrage.getTitre()}">
+                                                nom</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div th:if="!${ouvrage.getDisponibilite().isEmpty()}">
+                                            <div class="row">
+                                                <div class="col-6 font-weight-bold"
+                                                     th:utext="'Bibliothèque'"></div>
+                                                <div class="col-4 font-weight-bold"
+                                                     th:utext="Disponibilité"></div>
+                                            </div>
+                                            <div th:each="disponibilite : ${ouvrage.getDisponibilite()}">
+                                                <div class="row">
+                                                    <div class="col-6"
+                                                         th:utext="${disponibilite.getBibliotheque().getNom()}"></div>
+                                                    <div class="col-4"
+                                                         th:utext="${disponibilite.getDispo()}"></div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div th:if="${ouvrage.getDisponibilite().isEmpty()}">
+                                                <span>Aucun exemplaire disponible</span>
+                                            </div>
+                                            </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-default" data-dismiss="modal"
+                                                    type="button">Fermer
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         </tr>
                         </tbody>
                     </table>
