@@ -18,4 +18,8 @@ public class OuvrageService {
     public List<OuvrageDto> getAllOuvrages() {
         return ouvrageClient.getAllOuvrages();
     }
+
+    public List<OuvrageDto> filterOuvrages(String recherche) {
+        return ouvrageClient.filterOuvrages(recherche);
+    }
 }

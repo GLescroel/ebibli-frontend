@@ -22,7 +22,8 @@
                        role="button" th:text="${bibliothequeSelectionnee.getNom()}">Bibliothèques</a>
                     <div aria-labelledby="navbarDropdown" class="dropdown-menu">
                         <div th:each="bibliotheque : ${bibliotheques}">
-                            <a class="dropdown-item" th:href="@{/Bibliotheque/{bibliothequeId}(bibliothequeId=${bibliotheque.getId()})}"
+                            <a class="dropdown-item"
+                               th:href="@{/Bibliotheque/{bibliothequeId}(bibliothequeId=${bibliotheque.getId()})}"
                                th:text="${bibliotheque.getNom()}"></a>
                         </div>
                     </div>
@@ -58,32 +59,51 @@
 
 <body>
 
-<div>
-    <img th:src="@{${image}}">
-</div>
 <div class="container">
     <div th:if="${bibliothequeSelectionnee.getId() == 0}">
-        <h2>Liste des ouvrages proposés :</h2>
+        <form id="rechercheOuvrage" method="post" th:action="@{/recherche}">
+            <div class="row col-12"><h2>
+                <label class="col-6 align-self-center">Liste des ouvrages proposés : </label>
+                <input class="col-4 align-self-center" name="recherche" type="text">
+                <button class="btn btn-outline-secondary col-1 align-self-center"
+                        type="submit">Filtrer</button>
+            </h2></div>
+        </form>
+
 
         <div th:if="${ouvrages}">
             <br><br>
-            <div class="row">
-                <table class="table-striped">
-                    <thead>
-                    <tr>
-                        <div class="col-2"><th></th></div>
-                        <div class="col-5"><th> Titre</th></div>
-                        <div class="col-5"><th> Résumé</th></div>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="ouvrage : ${ouvrages}">
-                        <div class="col-2"><td><img th:src="@{${urlBackend}+${ouvrage.getImage()}}" style="width:200px"></td></div>
-                        <div class="col-5"><td><strong><span th:text="${ouvrage.getTitre()}"> </span></strong></td></div>
-                        <div class="col-5"><td><span th:text="${ouvrage.getResume()}"> </span></td></div>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="table-responsive">
+                <div class="row">
+                    <table class="table-striped">
+                        <thead>
+                        <tr>
+                            <div class="col-2">
+                                <th></th>
+                            </div>
+                            <div class="col-5">
+                                <th> Titre</th>
+                            </div>
+                            <div class="col-5">
+                                <th> Résumé</th>
+                            </div>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="ouvrage : ${ouvrages}">
+                            <div class="col-2">
+                                <td><img style="width:200px" th:src="@{${urlBackend}+${ouvrage.getImage()}}"></td>
+                            </div>
+                            <div class="col-5">
+                                <td><strong><span th:text="${ouvrage.getTitre()}"> </span></strong></td>
+                            </div>
+                            <div class="col-5">
+                                <td><span th:text="${ouvrage.getResume()}"> </span></td>
+                            </div>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -91,30 +111,55 @@
         <h2>Liste des livres proposés :</h2>
         <div th:if="${livres}">
             <br><br>
-            <div class="row">
-            <table class="table-striped">
-                <thead>
-                <tr>
-                    <div class="col-1"><th> </th></div>
-                    <div class="col-5"><th> Titre</th></div>
-                    <div class="col-5"><th> Résumé</th></div>
-                    <div class="col-1"><th> Disponibilité</th></div>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="livre : ${livres}">
-                    <div class="col-1"><div class="col-2"><td><img th:src="@{${urlBackend}+${livre.getOuvrage().getImage()}}" style="width:100px"></td></div></div>
-                    <div class="col-5"><td><strong><span th:text="${livre.getOuvrage().getTitre()}"> </span></strong></td></div>
-                    <div class="col-5"><td><span th:text="${livre.getOuvrage().getResume()}"> </span></td></div>
-                    <div th:if="${livre.getDisponible()} == true">
-                        <div class="col-1"><td><span style='color:#0C0'>Disponible</span></td></div>
-                    </div>
-                    <div th:if="${livre.getDisponible()} == false">
-                        <div class="col-1"><td><span style='color:#CCC' th:text="${livre.getEmpruntEnCours().getDateRetourPrevu()}">retour</span></td></div>
-                    </div>
-                </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <div class="row">
+                    <table class="table-striped">
+                        <thead>
+                        <tr>
+                            <div class="col-1">
+                                <th></th>
+                            </div>
+                            <div class="col-5">
+                                <th> Titre</th>
+                            </div>
+                            <div class="col-5">
+                                <th> Résumé</th>
+                            </div>
+                            <div class="col-1">
+                                <th> Disponibilité</th>
+                            </div>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="livre : ${livres}">
+                            <div class="col-1">
+                                <div class="col-2">
+                                    <td><img style="width:100px"
+                                             th:src="@{${urlBackend}+${livre.getOuvrage().getImage()}}"></td>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <td><strong><span th:text="${livre.getOuvrage().getTitre()}"> </span></strong></td>
+                            </div>
+                            <div class="col-5">
+                                <td><span th:text="${livre.getOuvrage().getResume()}"> </span></td>
+                            </div>
+                            <div th:if="${livre.getDisponible()} == true">
+                                <div class="col-1">
+                                    <td><span style='color:#0C0'>Disponible</span></td>
+                                </div>
+                            </div>
+                            <div th:if="${livre.getDisponible()} == false">
+                                <div class="col-1">
+                                    <td><span style='color:#CCC'
+                                              th:text="${livre.getEmpruntEnCours().getDateRetourPrevu()}">retour</span>
+                                    </td>
+                                </div>
+                            </div>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

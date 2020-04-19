@@ -3,6 +3,7 @@ package com.ebibli.infrastructure.rest.ouvrage;
 import com.ebibli.dto.OuvrageDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -15,4 +16,7 @@ public interface OuvrageClientApi {
 
     @GetMapping(value = "/ouvrages")
     List<OuvrageDto> getAllOuvrages();
+
+    @GetMapping(value = "/ouvrages/recherche/{recherche}")
+    List<OuvrageDto> filterOuvrages(@PathVariable ("recherche") String recherche);
 }
