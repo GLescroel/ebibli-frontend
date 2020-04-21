@@ -14,11 +14,6 @@ public class RestLivreClient implements LivreClient {
     }
 
     @Override
-    public LivreDto getLivreById(Integer livreId) {
-        return livreClientApi.getLivreById(livreId);
-    }
-
-    @Override
     public List<LivreDto> getAllLivresByBibliotheque(Integer bibliothequeId) {
         return livreClientApi.getAllLivresByBibliotheque(bibliothequeId);
     }

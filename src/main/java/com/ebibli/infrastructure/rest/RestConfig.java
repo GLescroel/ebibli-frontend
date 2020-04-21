@@ -50,4 +50,9 @@ public class RestConfig {
         return new RestBibliothequeClient(bibliothequeClientApi);
     }
 
+    @Bean
+    public CustomErrorDecoder  customErrorDecoder() {
+        return new CustomErrorDecoder();
+    }
+
 }
