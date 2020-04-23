@@ -24,10 +24,10 @@ public class OuvrageService {
 
     public List<OuvrageDto> getAllOuvrages() {
         List<OuvrageDto> ouvrages = ouvrageClient.getAllOuvrages();
-        return setDisponibilités(ouvrages);
+        return setDisponibilites(ouvrages);
     }
 
-    private List<OuvrageDto> setDisponibilités(List<OuvrageDto> ouvrages) {
+    private List<OuvrageDto> setDisponibilites(List<OuvrageDto> ouvrages) {
         for (OuvrageDto ouvrage : ouvrages) {
             ouvrage.setDisponibilite(getOuvrageDispo(ouvrage.getId()));
         }
@@ -37,11 +37,16 @@ public class OuvrageService {
     private List<Disponibilite> getOuvrageDispo(Integer ouvrageId) {
         List<Disponibilite> disponibilites = new ArrayList<>();
         List<LivreDto> livres = livreService.getDispoByOuvrage(ouvrageId);
-        HashMap<BibliothequeDto, Integer> disponibilitesMap = new HashMap<BibliothequeDto, Integer>();
+        HashMap<BibliothequeDto, Integer> disponibilitesMap = new HashMap<>();
         for (LivreDto livre : livres) {
-            if (disponibilitesMap.get(livre.getBibliotheque()) != null) {
-                disponibilitesMap.put(livre.getBibliotheque(), disponibilitesMap.get(livre.getBibliotheque()) + 1);
-            } else {
+            boolean newBibli = true;
+            for (BibliothequeDto bibli : disponibilitesMap.keySet()) {
+                if (bibli.getId() == livre.getBibliotheque().getId()) {
+                    disponibilitesMap.put(bibli, disponibilitesMap.get(bibli) + 1);
+                    newBibli = false;
+                }
+            }
+            if (newBibli) {
                 disponibilitesMap.put(livre.getBibliotheque(), 1);
             }
         }
@@ -56,6 +61,6 @@ public class OuvrageService {
 
     public List<OuvrageDto> filterOuvrages(String recherche) {
         List<OuvrageDto> ouvrages = ouvrageClient.filterOuvrages(recherche);
-        return setDisponibilités(ouvrages);
+        return setDisponibilites(ouvrages);
     }
 }
