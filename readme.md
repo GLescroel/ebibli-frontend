@@ -1,10 +1,14 @@
 eBibli-frontend
 
 Application web du système d'information des bibliothèques de la ville à destination des usagers.
-Les usagers ont la possibilité de consulter les ouvrages proposés dans les bibliothèques de la ville et les livres disponibles (ou non) dans chaque bibliothèque.
-Les usagers authentifiés peuvent également consulter la liste de leurs emprunts en cours et de les prolonger (une fois).
+Ce site web permet aux usagers de :
+- consulter les ouvrages proposés dans les bibliothèques de la ville
+- voir le nombre d'exemplaires disponibles 
+- et les livres disponibles (ou non) dans chaque bibliothèque
+- consulter la liste de leurs emprunts en cours et de les prolonger (une fois)
+- consulter l'historique de leurs emprunts.
 
-Ce client Rest interroge le backend qui expose des API Rest sur l'url http://localhost:8081 paramétrable dans le fichier application.properties
+Ce client Rest interroge le backend qui expose les microservices Rest sur les url http://localhost:9001 à 9005 paramétrables dans le fichier application.properties
 
 Pré-requis technique
 
@@ -25,7 +29,7 @@ ou de déployer le war dans un tomcat.
 
 Le port de l'Application est paramétré dans application.propertie : http://localhost:8080/
 
-Le backend (https://github.com/GLescroel/ebibli-backend) doit avoir été lancé préalablement
+Les microservices du backend (https://github.com/GLescroel/ebibli-backend) doit avoir été lancés préalablement
 
 Documentation : la javadoc peut être générée via la commande mvn javadoc:javadoc puis consultée à partir de la page \target\site\apidocs\index.html
 
