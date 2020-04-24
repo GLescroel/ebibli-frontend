@@ -80,8 +80,8 @@
         <div th:if="${ouvrages}">
             <br><br>
             <div class="table-responsive">
-                <div class="row">
-                    <table id="example" class="display table-striped" style="width:100%">
+                    <table id="ouvragesTable" class="display table-striped" style="width:100%">
+                        <div class="row">
                         <thead>
                         <tr>
                             <div class="col-2">
@@ -156,8 +156,8 @@
                             </div>
                         </tr>
                         </tbody>
+                        </div>
                     </table>
-                </div>
             </div>
         </div>
     </div>
@@ -166,8 +166,8 @@
         <div th:if="${livres}">
             <br><br>
             <div class="table-responsive">
-                <div class="row">
-                    <table class="table-striped">
+                    <table id="livresTable" class="table-striped">
+                        <div class="row">
                         <thead>
                         <tr>
                             <div class="col-1">
@@ -212,8 +212,8 @@
                             </div>
                         </tr>
                         </tbody>
+                        </div>
                     </table>
-                </div>
             </div>
         </div>
     </div>
@@ -222,8 +222,50 @@
 
 
 <script>
-    $(document).ready(function() {
-        $('#example').DataTable();
+    jQuery(document).ready(function() {
+        jQuery('#ouvragesTable').DataTable(
+            {
+                "searching":     false,
+                "language": {
+                    "lengthMenu": "Afficher _MENU_ ouvrages par page",
+                    "zeroRecords": "Aucun résultat ne correspond à votre recherche",
+                    "info": "page _PAGE_ / _PAGES_",
+                    "infoEmpty": "Aucun ouvrage",
+                    "infoFiltered": "(filtré de _MAX_ ouvrages)",
+                    "paginate": {
+                        "first": "Première page",
+                        "last": "Dernière page",
+                        "previous": "Précédente",
+                        "next": "Suivante"
+                    }
+                }
+            }
+
+        );
+    } );
+</script>
+
+<script>
+    jQuery(document).ready(function() {
+        jQuery('#livresTable').DataTable(
+            {
+                "searching":     true,
+                "language": {
+                    "lengthMenu": "Afficher _MENU_ livres par page",
+                    "zeroRecords": "Aucun résultat ne correspond à votre recherche",
+                    "info": "page _PAGE_ / _PAGES_",
+                    "infoEmpty": "Aucun livre",
+                    "infoFiltered": "(filtré de _MAX_ livres)",
+                    "paginate": {
+                        "first": "Première page",
+                        "last": "Dernière page",
+                        "previous": "Précédente",
+                        "next": "Suivante"
+                    }
+                }
+            }
+
+        );
     } );
 </script>
 
@@ -234,9 +276,6 @@
 </script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script crossorigin="anonymous"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 <script crossorigin="anonymous"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
